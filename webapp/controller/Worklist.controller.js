@@ -36,6 +36,16 @@ sap.ui.define([
 
         },
 
+        handleOpenDetails: function () {
+			var oDialog = this.getView().byId("buttonDetails");
+			oDialog.show();
+		},
+
+		// handleCloseDetails: function () {
+		// 	var oDialog = this.getView().byId("buttonDetails");
+		// 	oDialog.close();
+		// }
+
         /* =========================================================== */
         /* event handlers                                              */
         /* =========================================================== */
@@ -101,7 +111,6 @@ sap.ui.define([
                 }
                 this._applySearch(aTableSearchState);
             }
-
         },
 
         /**

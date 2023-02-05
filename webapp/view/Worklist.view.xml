@@ -1,162 +1,77 @@
-<mvc:View xmlns:m="sap.m" xmlns="sap.ui.table" xmlns:c="sap.ui.core" controllerName="br.com.products.project.controller.Worklist" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic">
+<mvc:View xmlns:m="sap.m" xmlns="sap.ui.table" xmlns:c="sap.ui.webc.main" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="br.com.products.project.controller.Worklist">
     <semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
         <semantic:titleHeading>
             <m:Title id="worklistTitle" text="{i18n>worklistTitle}" level="H2" />
         </semantic:titleHeading>
 
-        <!-- <semantic:content> -->
-        <!-- <m:Table
-                id="table"
-                width="auto"
-                items="{
-                    path: '/Products',
-                    sorter: {
-                        path: 'ID',
-                        descending: false
-                    }
-                }"
-                noDataText="{worklistView>/tableNoDataText}"
-                busyIndicatorDelay="{worklistView>/tableBusyDelay}"
-                growing="true"
-                growingScrollToLoad="true"
-                updateFinished=".onUpdateFinished"
-            >
-                <m:headerToolbar>
-                    <m:OverflowToolbar>
-                        <m:Title id="tableHeader" text="{worklistView>/worklistTableTitle}" level="H3" />
-                        <m:ToolbarSpacer />
-                        <m:SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search=".onSearch">
-                            <m:layoutData>
-                                <m:OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" />
-                            </m:layoutData>
-                        </m:SearchField>
-                    </m:OverflowToolbar>
-                </m:headerToolbar>
-
-                <m:columns>
-                    <m:Column id="nameColumn">
-                        <m:Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle" />
-                    </m:Column>
-                    <m:Column id="unitNumberColumn" hAlign="End">
-                        <m:Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle" />
-                    </m:Column>
-                </m:columns>
-
-                <m:items>
-                    <m:ColumnListItem type="Navigation" press=".onPress">
-                        <m:cells>
-                            <m:ObjectIdentifier title="{ID}" />
-                            <m:ObjectNumber number="{
-                                    path: 'Price',
-                                    formatter: '.formatter.numberUnit'
-                                }" unit="{Rating}" />
-                        </m:cells>
-                    </m:ColumnListItem>
-                </m:items>
-            </m:Table> -->
-        <!-- </semantic:content> -->
-        <!-- 
-        <semantic:sendEmailAction>
-            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress" />
-        </semantic:sendEmailAction> -->
-
-        <Table rows="{/Products}" selectionMode="MultiToggle" visibleRowCount="7" ariaLabelledBy="title">
+        <Table rows="{/Products}" selectionMode="MultiToggle" ariaLabelledBy="title">
             <extension>
                 <m:OverflowToolbar style="Clear">
                     <m:Title id="title" text="Products" />
                 </m:OverflowToolbar>
             </extension>
             <columns>
-                <Column width="11rem">
-                    <m:Label text="Product Name" />
+                <Column>
+                    <m:Label text="ID Product" />
+                    <template>
+                        <m:Text text="{ID}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column>
+                    <m:Label text="Name Product" />
                     <template>
                         <m:Text text="{Name}" wrapping="false" />
                     </template>
                 </Column>
-                <Column width="11rem">
-                    <m:Label text="Product Id" />
+                <Column>
+                    <m:Label text="Data do cadastro" />
                     <template>
-                        <m:Input value="{ProductId}" />
+                        <m:Text text="{ReleaseDate}" wrapping="false" />
                     </template>
                 </Column>
-                <Column width="6rem" hAlign="End">
-                    <m:Label text="Quantity" />
+                <Column>
+                    <m:Label text="Data da venda" />
                     <template>
-                        <m:Label text="{Quantity}" />
+                        <m:Text text="{DiscontinuedDate}" wrapping="false" />
                     </template>
                 </Column>
-                <Column width="9rem">
-                    <m:Label text="Status" />
-                    <template>
-                        <m:ObjectStatus text="{Status}" state="{
-								path: 'Available',
-								formatter: '.formatAvailableToObjectState'
-							}" />
+                <Column>
+                    <m:Label text="Avaliação do Produto" />
+                     <template>
+                        <m:Text text="{Rating}" wrapping="false" />
                     </template>
                 </Column>
-                <!-- <Column width="9rem">
-                    <m:Label text="Price" />
+                <Column>
+                    <m:Label text="Preço p/ Unidade" />
                     <template>
-                        <u:Currency value="{Price}" currency="{CurrencyCode}" />
-                    </template>
-                </Column> -->
-                <!-- <Column width="12rem">
-                    <m:Label text="Supplier" />
-                    <template>
-                        <m:ComboBox value="{SupplierName}" items="{/Suppliers}">
-                            <c:Item text="{Name}" />
-                        </m:ComboBox>
-                    </template>
-                </Column> -->
-                <Column width="9rem">
-                    <m:Label text="Image" />
-                    <template>
-                        <m:Link text="Show Image" href="{ProductPicUrl}" target="_blank" />
+                        <m:Text text="{Price}" wrapping="false" />
                     </template>
                 </Column>
-                <Column width="9rem">
-                    <m:Label text="Details" />
+                <Column>
+                    <m:Label text="Acessar Detalhes" />
                     <template>
-                        <m:Button text="Show Details" />
-                    </template>
-                </Column>
-                <Column width="7rem">
-                    <m:Label text="Heavy Weight" />
-                    <template>
-                        <m:CheckBox selected="{
-								path: 'Heavy',
-								type: 'sap.ui.model.type.String'
-							}" />
-                    </template>
-                </Column>
-                <!-- <Column width="12rem">
-                    <m:Label text="Main Category" />
-                    <template>
-                        <m:Select selectedKey="{Category}" items="{/Categories}">
-                            <c:Item text="{Name}" key="{Name}" />
-                        </m:Select>
-                    </template>
-                </Column> -->
-                <!-- <Column width="6rem" hAlign="Center">
-                    <m:Label text="Status" />
-                    <template>
-                        <c:Icon src="{
-								path: 'Available',
-								formatter: '.formatAvailableToIcon'
-							}" />
-                    </template>
-                </Column> -->
-                <Column width="11rem" hAlign="Center">
-                    <m:Label text="Delivery Date" />
-                    <template>
-                        <m:DatePicker value="{
-								path: 'DeliveryDate',
-								type: 'sap.ui.model.type.Date',
-								formatOptions: {source: {pattern: 'timestamp'}}
-							}" />
+                        <m:Button press="handleOpenDetails" text="Show Dialog" ariaHasPopup="Dialog"/>
+                        <!-- <c:Button click=".handleOpenDetails" text="Detalhes" ariaHasPopup="Dialog"/> -->
                     </template>
                 </Column>
             </columns>
         </Table>
     </semantic:SemanticPage>
+
+    <l:VerticalLayout class="sapUiContentPadding" width="100%">
+		<c:Dialog id="buttonDetails" resizable="true" draggable="true" headerText="Detalhes do Produto">
+			<l:VerticalLayout>
+				<m:Label for="username" showColon="true" text="Username" />
+				<m:Text id="username" text="ID Product" />
+				<m:Label for="password" showColon="true" text="Password" />
+				<m:Text id="password" text="Product Name" />
+				<m:Label for="email" showColon="true" text="Email" />
+				<m:Text id="email" text="Data de Cadastro" />
+			</l:VerticalLayout>
+			<!-- <c:footer>
+				<m:Button design="Emphasized" click=".handleClose" text="Register"
+					class="sapUiTinyMarginTop sapUiTinyMarginBottom" />
+			</c:footer> -->
+		</c:Dialog>
+	</l:VerticalLayout>
 </mvc:View>
